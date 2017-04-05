@@ -51,29 +51,58 @@ What's the time complexity?
  */
 
 function Stack(capacity) {
-  // implement me...
+    this.capacity = capacity || infinity;
+    this.storage = {};
 }
 
 Stack.prototype.push = function(value) {
-  // implement me...
+    // Check if there is room to push a value onto
+    if (this.count() < this.capacity) {
+      this.storage[this.count()] = value;
+    } else {
+        console.log('Max capacity already reached. Remove element before adding a new one.');
+    }
 };
-// Time complexity:
+// Time complexity: O(1)
 
 Stack.prototype.pop = function() {
-  // implement me...
+    delete this.storage[this.count() - 1];
 };
-// Time complexity:
+// Time complexity: O(1)
 
 Stack.prototype.peek = function() {
-  // implement me...
+    return this.storage[this.count() - 1];
 };
-// Time complexity:
+// Time complexity: O(1)
 
 Stack.prototype.count = function() {
-  // implement me...
+    return Object.keys(this.storage).length;
+};
+// Time complexity: O(1)
+
+Stack.prototype.contains = function (value) {
+    var count = 0;
+    while (count < this.count()) {
+        if (this.storage[count] === value) {
+            return true;
+        }
+        count ++;
+    }
+    return false;
+};
+// Time complexity: O(n^1)
+
+Stack.prototype.until = function (value) {
+    var count = 0;
+    while (count < this.count()) {
+        if (value === this.storage[count]) {
+            return this.count() - count;
+        }
+        count ++;
+    }
+    console.log('This stack does not contain:', value);
 };
 // Time complexity:
-
 
 /*
 *** Exercises:
