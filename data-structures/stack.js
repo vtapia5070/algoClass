@@ -104,6 +104,18 @@ Stack.prototype.until = function (value) {
 };
 // Time complexity:
 
+Stack.prototype.getMin = function () {
+    var count = 0;
+    var minimum = this.storage[count];
+    while (count < this.count()) {
+        if (this.storage[count] < minimum) {
+            minimum = this.storage[count];
+        }
+        count ++;
+    }
+    return minimum;
+};
+
 /*
 *** Exercises:
 
