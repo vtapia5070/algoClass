@@ -51,39 +51,44 @@ What's the time complexity?
  */
 
 function Stack(capacity) {
-    this.capacity = capacity || infinity;
-    this.storage = {};
+    this._capacity = capacity || infinity;
+    this._storage = {};
+    this._count = 0;
 }
 
+// Add a value
 Stack.prototype.push = function(value) {
     // Check if there is room to push a value onto
-    if (this.count() < this.capacity) {
-      this.storage[this.count()] = value;
+    if (this._count < this._capacity) {
+        this._storage[this._count++] = value;
     } else {
         console.log('Max capacity already reached. Remove element before adding a new one.');
     }
 };
 // Time complexity: O(1)
 
+// Remove a value
 Stack.prototype.pop = function() {
-    delete this.storage[this.count() - 1];
+    if (this._count === 0) {
+        console.log('the stack is empty.');
+        return;
+    }
+    var value = this._storage[this.count];
+    delete this._storage[this._count];
+    return value;
+
 };
 // Time complexity: O(1)
 
 Stack.prototype.peek = function() {
-    return this.storage[this.count() - 1];
-};
-// Time complexity: O(1)
-
-Stack.prototype.count = function() {
-    return Object.keys(this.storage).length;
+    return this._storage[this._count - 1];
 };
 // Time complexity: O(1)
 
 Stack.prototype.contains = function (value) {
     var count = 0;
-    while (count < this.count()) {
-        if (this.storage[count] === value) {
+    while (count < this._count) {
+        if (this._storage[count] === value) {
             return true;
         }
         count ++;
@@ -92,13 +97,14 @@ Stack.prototype.contains = function (value) {
 };
 // Time complexity: O(n^1)
 
+// Get the number of pops until you get to a certain value
 Stack.prototype.until = function (value) {
-    var count = 0;
-    while (count < this.count()) {
-        if (value === this.storage[count]) {
-            return this.count() - count;
+    var count = this._count;
+    while (count > 0) {
+        if (value === this._storage[count]) {
+            return this._count - count;
         }
-        count ++;
+        count --;
     }
     console.log('This stack does not contain:', value);
 };
@@ -107,7 +113,7 @@ Stack.prototype.until = function (value) {
 Stack.prototype.getMin = function () {
     var count = 0;
     var minimum = this.storage[count];
-    while (count < this.count()) {
+    while (this.count()) {
         if (this.storage[count] < minimum) {
             minimum = this.storage[count];
         }
