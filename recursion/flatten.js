@@ -9,6 +9,19 @@ function flatten (arr) {
     var storage = [];
     arr.forEach(function (val) {
         if (Array.isArray(val)) {
+            storage.push()
+        }
+    });
+    if (Array.isArray(arr)) {
+        return flatten(arr);
+    }
+    return storage.push(arr);
+}
+
+function flatten (arr) {
+    var storage = [];
+    arr.forEach(function (val) {
+        if (Array.isArray(val)) {
             storage.concat(flatten(val));
         } else {
             storage.push(val);

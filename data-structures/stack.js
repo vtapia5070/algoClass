@@ -110,16 +110,48 @@ Stack.prototype.until = function (value) {
 };
 // Time complexity:
 
-Stack.prototype.getMin = function () {
-    var count = 0;
-    var minimum = this.storage[count];
-    while (this.count()) {
-        if (this.storage[count] < minimum) {
-            minimum = this.storage[count];
-        }
-        count ++;
+function minStack (capacity) {
+    this._storage = {};
+    this._capacity = capacity || infinity;
+    this._count = 0;
+    this._minStack = new Stack();
+}
+
+minStack.prototype.push = function (val) {
+    // Check if stack has reached capacity
+    if (this._count === this._capacity) {
+        console.log('This stack has reached capacity.');
+        return;
     }
-    return minimum;
+
+    // compare value and recent min stack item.
+    if (this._minStack[this._count] < val) {
+        // if val is greater, push recent minStack item again.
+        this._minStack.push(this._minStack[this._count]);
+    } else {
+        // if recent minStack item is greater, push val to min stack.
+        this._minStack.push(val);
+    }
+
+    this._count++;
+    this._storage[this._count] = val;
+
+};
+
+minStack.prototype.pop = function () {
+    if (this._count === 0) {
+        console.log('Stack is empty.');
+    }
+    // store last item in stack.
+    var val = this._storage[this._count];
+    // delete last item on minStack
+    this._minStack.pop();
+    // delted last item on this stack.
+    delete this._storage[this._count];
+    // decrement count
+    this._count--;
+    // return delted val
+    return val;
 };
 
 /*
