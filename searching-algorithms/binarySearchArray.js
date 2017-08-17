@@ -1,6 +1,6 @@
 /*
 BINARY SEARCH ARRAY
-
+Think phone book example which is O(logn) or O(n^1.5) or logarithmic
 *** Description
 
 Given a sorted array and a value, determine if the value is in the array using the binary search (divide and conquer) method.

@@ -28,3 +28,36 @@ Stable Variant
 - Implement selection sort for a linked list (you can use your data structure implemention from earlier in the course). How does this impact performance and stability?
 
 */
+
+// new array
+function selectionSort (list) {
+    var sorted = [];
+    for (var i = 0; i < list.length; i++) {
+        var lowest = list[i];
+        for (var n = 1; n < list.length; n++) {
+            if (list[i] < list[n]) {
+                lowest = list[i];
+            }
+        }
+        sorted.push(lowest);
+    }
+    return sorted;
+}
+
+// in place
+function selectionSort (list) {
+    for (var i = 0; i < list.length; i++) {
+        // find smallest value
+        var smallestIndex = i;
+        for (var n = i+1; n <list.length; n++) {
+            if (list[n] < list[smallestIndex]) {
+                smallestIndex = n;
+            }
+        }
+        // swap current value with smallest value
+        var currentValue = list[i];
+        list[i] = list[smallestIndex];
+        list[smallestIndex] = currentValue;
+    }
+    return list;
+}

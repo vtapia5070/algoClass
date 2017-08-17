@@ -90,7 +90,36 @@ Queue.prototype.count = function() {
 };
 // Time complexity: O(1)
 
+function Queue_ofTwoStacks (capacity) {
+    this._capacity = capacity || infinity;
+    this._storage = {};
+    this._head = 0;
+    this._tail = 0;
+    this._inStack = new Stack();
+    this._outStack = new Stack();
+}
 
+Queue_ofTwoStacks.prototype.enqueue = function (val) {
+    if (this._inStack.count() === 0 && this._outStack.count() > 0) {
+        this.transferStacks();
+    }
+    this.inStack.push(val);
+};
+
+Queue_ofTwoStacks.prototype.transferstacks = function () {
+    if (this._outStack.count() === 0) {
+        this._outStack.push(this._inStack.pop());
+    } else if (this._inStack.count() === 0) {
+        this._inStack.push(this._outStack.pop());
+    }
+}
+
+Queue_ofTwoStacks.prototype.dequeue = function () {
+    if (this._outStack.count() === 0) {
+        this.transferStacks();
+        this._outStack.pop();
+    }
+};
 
 /*
 *** Exercises:
