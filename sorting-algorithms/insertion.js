@@ -29,3 +29,21 @@ now repeat for next unsorted element
 (https://en.wikipedia.org/wiki/Shellsort)
 
 */
+
+function insertionSort (list) {
+    for (var i = 0; i < list.length; i++) {
+        var a = i;
+        for (var n = i + 1; n > 0; n--) {
+            if (list[n] < list[a]) {
+                var greatest = list[a];
+                list[a] = list[n];
+                list[n] = greatest;
+            }
+            a--;
+        }
+
+    }
+
+    return list;
+
+}

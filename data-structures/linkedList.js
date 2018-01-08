@@ -37,7 +37,9 @@ myList.findNode(value)
 
 
 * Optimization:
-Say we have a linked list that has 100 items and we want to add an item to the very end. How would you do that with your current implementation? How can you modify the data structure to add an item to the end in constant time?
+Say we have a linked list that has 100 items and we want to add an item to the very end.
+How would you do that with your current implementation?
+How can you modify the data structure to add an item to the end in constant time?
 
 myList.appendToTail(value)
 => new tail node
@@ -87,58 +89,111 @@ function Node(value) {
 
 function LinkedList(headValue) {
   if (headValue === undefined) console.log('Must provide value for first node');
+  var node = new Node(headValue);
+  this.tail = this.head;
   this.head = new Node(headValue);
 }
 
 LinkedList.prototype.forEach = function(callback) {
-  // implement me...
+  var node = this.head;
+
+  while (node !== null) {
+    callback(node.value);
+    node = node.next;
+  }
+
 };
-// Time complexity:
+// Time complexity: O(n) linear
 
 LinkedList.prototype.print = function() {
-  // implement me...
+  var node = this.head;
+
+  while (node !== null) {
+    console.log('value:', node.value);
+    node = node.next;
+  }
+
 };
-// Time complexity:
+// Time complexity: O(n) linear
 
 LinkedList.prototype.insertAfter = function(node, value) {
-  // implement me...
+  var newNode = new Node(value);
+  var refNode = node.next;
+  node.next = newNode;
+  newNode.next = refNode;
 };
-// Time complexity:
+// Time complexity: O(1) constant
 
 LinkedList.prototype.removeAfter = function(node) {
-  // implement me...
+  var removedNode = node.next;
+  var temp = removedNode.next;
+  node.next = temp;
 };
-// Time complexity:
+// Time complexity: O(1) constant
 
 LinkedList.prototype.insertHead = function(value) {
-  // implement me...
+  var node = new Node(value);
+  node.next = this.head;
+  this.head = node;
 };
-// Time complexity:
+// Time complexity: O(1)
 
 LinkedList.prototype.removeHead = function() {
-  // implement me...
+  this.head = this.head.next;
 }
+// Time complexity: O(1)
 
 LinkedList.prototype.findNode = function(value) {
-  // implement me...
+  var node = this.head;
+  while (node.next !== null) {
+    if (node.value === value) {
+      return node;
+    }
+    node = node.next;
+  }
 };
-// Time complexity:
+// Time complexity: O(n)
 
 LinkedList.prototype.appendToTail = function(value) {
-  // implement me...
+  var node = new Node(value);
+  this.tail.next = node;
+  this.tail = node;
 };
-// Time complexity:
+// Time complexity: O(1) constant
 
 
 // PART 2:
 
+function DoublyNode (value) {
+  this.value = value;
+  this.prev = null;
+  this.next = null;
+}
+
+function DoublyLinkedlist (headValue) {
+  this.head = DoublyNode(headValue);
+  this.tail = this.head;
+}
+
 LinkedList.prototype.insertBefore = function(node, value) {
-  // implement me...
+  // store ref node
+  var refNode = node;
+  // store reference to ref node prev
+  var prevRefNode = node.prev;
+  var newNode = new Node(value);
+  // re-assign refNode.prev to newNode
+  refNode.prev = newNode;
+  // assign new next node to new node
+  prevRefNode.next = newNode;
+  newNode.next = refNode;
 };
-// Time complexity:
+// Time complexity: O(1)
 
 LinkedList.prototype.removeBefore = function(node) {
-  // implement me...
+  // find refNode
+  // store ref to prev
+  var prevNode = node.prev
+  // node.prev
 };
 // Time complexity:
 
@@ -151,7 +206,10 @@ LinkedList.prototype.removeBefore = function(node) {
 
 2. Implement a queue using a linked list.
 
-3. Write a method that remove duplicates from an unsorted linked list. What is the time complexity? Re-implement the method without using any additional storage structure (constant space complexity). What is the time complexity?
+3. Write a method that remove duplicates from an unsorted linked list.
+What is the time complexity? Re-implement the method without using any
+additional storage structure (constant space complexity).
+What is the time complexity?
 
 4. Reverse a linked list. Do not use any additional storage structures.
 
